@@ -5,15 +5,18 @@
 #include <raylib/raylib.h>
 
 #include "welt_util.h"
-#include "welt_draw.h"
-#include "welt_player.h"
 #include "welt_settings.h"
+#include "welt_draw.h"
+#include "welt_world.h"
+#include "welt_player.h"
+#include "welt_enemy.h"
 
 int main(int argc, char **argv)
 {
-    InitWindow(1920, 1080, "Hello world");
+    InitWindow(1920, 1080, "WELT");
 
-    Texture2D texture = LoadTexture(TEXTURE_PATH);
+    Texture2D grassTexture = LoadTexture(GRASS_TEXTURE);
+    Texture2D whiteTexture = LoadTexture(WHITE_TEXTURE);
 
     float fps = FPS;
     float delta = 1.0f/fps;
@@ -36,7 +39,9 @@ int main(int argc, char **argv)
             BeginMode3D(playerState.camera);
                 DrawGrid(worldDim * 2 + 4, 0.5f);
 
-                DrawWorld(texture, 0.0f, worldDim, worldDim);
+                DrawWorld(grassTexture, 0.0f, worldDim, worldDim);
+
+                DrawEnemy(whiteTexture, {0.0f, 0.0f, 2.0f});
             EndMode3D();
 
             DrawFPS(10, 10);
@@ -45,7 +50,8 @@ int main(int argc, char **argv)
         EndDrawing();
     }
 
-    UnloadTexture(texture);
+    UnloadTexture(grassTexture);
+    UnloadTexture(whiteTexture);
 
     CloseWindow();
 
@@ -53,4 +59,6 @@ int main(int argc, char **argv)
 }
 
 #include "welt_draw.cpp"
+#include "welt_world.cpp"
 #include "welt_player.cpp"
+#include "welt_enemy.cpp"

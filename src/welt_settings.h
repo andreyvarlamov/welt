@@ -1,7 +1,8 @@
 #ifndef WELT_SETTINGS_H
 #define WELT_SETTINGS_H
 
-#define TEXTURE_PATH "res/grass.png"
+#define GRASS_TEXTURE "res/grass.png"
+#define WHITE_TEXTURE "res/white.png"
 #define FPS 60.0f
 
 #define PLAYER_CAMERA_HEIGHT 1.7f
