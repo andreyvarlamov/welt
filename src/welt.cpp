@@ -1,45 +1,47 @@
+#include "welt.h"
+
 #include <cstdio>
 
 #include <raylib/raylib.h>
 
 #include "welt_util.h"
 #include "welt_draw.h"
-
-#define TEXTURE_PATH "res/grass.png"
+#include "welt_player.h"
+#include "welt_settings.h"
 
 int main(int argc, char **argv)
 {
     InitWindow(1920, 1080, "Hello world");
 
-    Camera camera = {};
-    camera.position = {0.0f, 10.0f, 10.0f};
-    camera.target = {0.0f, 0.0f, 0.0f};
-    camera.up = {0.0f, 1.0f, 0.0f};
-    camera.fovy = 80.0f;
-    camera.projection = CAMERA_PERSPECTIVE;
-
     Texture2D texture = LoadTexture(TEXTURE_PATH);
 
-    SetTargetFPS(60);
+    float fps = FPS;
+    float delta = 1.0f/fps;
+
+    SetTargetFPS(fps);
 
     DisableCursor();
 
     int worldDim = 16;
 
+    PlayerState playerState = MakePlayer({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f}, PLAYER_FOV, PLAYER_CAMERA_HEIGHT, PLAYER_SPEED);
+
     while (!WindowShouldClose())
     {
-        UpdateCamera(&camera, CAMERA_FREE);
+        UpdatePlayer(&playerState, delta);
 
         BeginDrawing();
             ClearBackground(RAYWHITE);
 
-            BeginMode3D(camera);
+            BeginMode3D(playerState.camera);
                 DrawGrid(worldDim * 2 + 4, 0.5f);
 
                 DrawWorld(texture, 0.0f, worldDim, worldDim);
             EndMode3D();
 
             DrawFPS(10, 10);
+
+            DrawPlayerDebugInfo(&playerState);
         EndDrawing();
     }
 
@@ -51,3 +53,4 @@ int main(int argc, char **argv)
 }
 
 #include "welt_draw.cpp"
+#include "welt_player.cpp"

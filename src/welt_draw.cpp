@@ -16,7 +16,7 @@ void DrawWorld(Texture2D texture, float yPos, int cols, int rows)
     {
         for (int col = -cols/2; col < cols/2; col++)
         {
-            DrawCubeTexture(texture, {cubeDim/2 + (float) col, cubeDim/2 + yPos, cubeDim/2 + (float) row}, cubeDim, cubeDim, cubeDim, WHITE);
+            DrawCubeTexture(texture, {cubeDim/2 + (float) col, yPos - cubeDim/2, cubeDim/2 + (float) row}, cubeDim, cubeDim, cubeDim, WHITE);
         }
     }
 }
