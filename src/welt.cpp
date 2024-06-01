@@ -48,7 +48,7 @@ int main(int argc, char **argv)
             ClearBackground(RAYWHITE);
 
             BeginMode3D(playerState.camera);
-                // DrawGrid(worldDim * 2 + 4, 0.5f);
+                DrawGrid(worldDim * 2 + 4, 0.5f);
 
                 BeginShaderMode(shader);
                     DrawWorld(grassTexture, 0.0f, worldDim, worldDim);

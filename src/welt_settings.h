@@ -5,7 +5,7 @@
 #define WHITE_TEXTURE "res/white.png"
 #define FPS 60.0f
 
-#define PLAYER_CAMERA_HEIGHT 1.7f
+#define PLAYER_CAMERA_HEIGHT 2.6f
 #define PLAYER_DUCK_HEIGHT 1.4f
 #define PLAYER_FOV 80.0f
 #define PLAYER_SPEED 5.0f

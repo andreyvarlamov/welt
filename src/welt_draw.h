@@ -8,5 +8,4 @@ void DrawCubeAroundVector(Texture2D texture, Vector3 start, Vector3 v, float wid
 void DrawSphereWithNormals(Vector3 centerPos, float radius, int rings, int slices, Color color);
 void DrawCapsuleWithNormals(Vector3 startPos, Vector3 endPos, float radius, int slices, int rings, Color color);
 
-
 #endif
