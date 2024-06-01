@@ -14,6 +14,9 @@
 #define GRAVITY 9.8f * 2.0f
 #define JUMP_VEL 6.5f
 
-#define ENABLE_FLIGHT 0
+#define ENABLE_FLIGHT 1
+#define ENABLE_GRAVITY 0
+
+#define DRAW_ENEMY_MESH 1
 
 #endif

@@ -7,7 +7,7 @@ set compiler_warnings=/WX /W4 /wd4201 /wd4100 /wd4189 /wd4505 /wd4996 /wd4456 /w
 set compiler_flags=/nologo /FC /Z7 /Od /GR-
 set linker_flags=/debug /incremental:no /subsystem:console
 
-set libs=raylibdll.lib raylib.lib
+set libs=raylib.lib
 
 pushd bin
 

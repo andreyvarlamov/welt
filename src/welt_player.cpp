@@ -52,6 +52,10 @@ void applyYVelocity(PlayerState *playerState, float delta)
 
 void updatePlayerPhysics(PlayerState *playerState, float delta, bool ignoreGravity, bool shouldJump)
 {
+#if (ENABLE_GRAVITY == 0)
+    playerState->yVelocity = 0.0f;
+    playerState->onGround = false;
+#else
     if (ignoreGravity)
     {
         playerState->yVelocity = 0.0f;
@@ -69,6 +73,7 @@ void updatePlayerPhysics(PlayerState *playerState, float delta, bool ignoreGravi
         playerState->yVelocity += yAcceleration * delta;
         applyYVelocity(playerState, delta);
     }
+#endif
 }
 
 struct PlayerInput

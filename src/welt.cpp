@@ -4,6 +4,9 @@
 
 #include <raylib/raylib.h>
 
+#define RLIGHTS_IMPLEMENTATION
+#include <raylib/rlights.h>
+
 #include "welt_util.h"
 #include "welt_settings.h"
 #include "welt_draw.h"
@@ -15,8 +18,8 @@ int main(int argc, char **argv)
 {
     InitWindow(1920, 1080, "WELT");
 
-    Texture2D grassTexture = LoadTexture(GRASS_TEXTURE);
-    Texture2D whiteTexture = LoadTexture(WHITE_TEXTURE);
+    Texture2D grassTexture = LoadTexture("res/textures/grass.png");
+    Texture2D whiteTexture = LoadTexture("res/textures/white.png");
 
     float fps = FPS;
     float delta = 1.0f/fps;
@@ -29,6 +32,14 @@ int main(int argc, char **argv)
 
     PlayerState playerState = MakePlayer({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f}, PLAYER_FOV, PLAYER_CAMERA_HEIGHT, PLAYER_SPEED);
 
+    Shader shader = LoadShader("res/shaders/lighting.vs", "res/shaders/lighting.fs");
+    shader.locs[SHADER_LOC_VECTOR_VIEW] = GetShaderLocation(shader, "viewPos");
+
+    int ambientLoc = GetShaderLocation(shader, "ambient");
+    SetShaderValue(shader, ambientLoc, (float[4]){0.1f, 0.1f, 0.1f, 0.1f}, SHADER_UNIFORM_VEC4);
+
+    Light light = CreateLight(LIGHT_DIRECTIONAL, {0.0f, 10.0f, -10.0f}, {0.0f, 0.0f, 0.0f}, YELLOW, shader);
+
     while (!WindowShouldClose())
     {
         UpdatePlayer(&playerState, delta);
@@ -37,11 +48,13 @@ int main(int argc, char **argv)
             ClearBackground(RAYWHITE);
 
             BeginMode3D(playerState.camera);
-                DrawGrid(worldDim * 2 + 4, 0.5f);
+                // DrawGrid(worldDim * 2 + 4, 0.5f);
 
-                DrawWorld(grassTexture, 0.0f, worldDim, worldDim);
+                BeginShaderMode(shader);
+                    DrawWorld(grassTexture, 0.0f, worldDim, worldDim);
 
-                DrawEnemy(whiteTexture, {0.0f, 0.0f, 2.0f});
+                    DrawEnemy(whiteTexture, {0.0f, 0.0f, 2.0f});
+                EndShaderMode();
             EndMode3D();
 
             DrawFPS(10, 10);
